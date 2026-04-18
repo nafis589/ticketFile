@@ -19,6 +19,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        \Illuminate\Support\Facades\Gate::policy(\App\Models\Counter::class, \App\Policies\CounterPolicy::class);
+
+        \Illuminate\Support\Facades\Blade::if('role', function (string $role) {
+            return auth()->check() && auth()->user()->role === $role;
+        });
     }
 }
