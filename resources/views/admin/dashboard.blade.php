@@ -3,7 +3,7 @@
 
     <div class="mb-8">
         <h2 class="text-xl font-bold text-slate-900 mb-6">Vue d'ensemble de la journée</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <!-- Tickets Traités -->
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex items-center hover:shadow-md transition duration-200">
                 <div class="w-16 h-16 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
@@ -36,6 +36,17 @@
                     <p class="text-4xl font-black text-slate-900 mt-1 tracking-tight">{{ $stats['temps_moyen_attente_min'] }}<span class="text-xl font-semibold text-slate-500 ml-1">min</span></p>
                 </div>
             </div>
+
+            <!-- Comptes en attente -->
+            <a href="{{ route('admin.users.pending') }}" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex items-center hover:shadow-md hover:border-slate-300 transition duration-200">
+                <div class="w-16 h-16 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                </div>
+                <div class="ml-5">
+                    <p class="text-sm border-b py-2 tracking-wider font-semibold text-slate-500">Comptes en attente</p>
+                    <p class="text-4xl font-black text-slate-900 mt-1 tracking-tight">{{ \App\Models\User::where('status', 'en_attente')->count() }}</p>
+                </div>
+            </a>
         </div>
     </div>
     

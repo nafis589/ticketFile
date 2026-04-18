@@ -16,9 +16,9 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'check_status', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'check_status'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -32,7 +32,7 @@ Route::middleware([])->prefix('usager')->name('usager.')->group(function () {
 });
 
 // Agent
-Route::middleware(['auth', 'role:agent'])->prefix('agent')->name('agent.')->group(function () {
+Route::middleware(['auth', 'check_status', 'role:agent'])->prefix('agent')->name('agent.')->group(function () {
     Route::get('/queue', [AgentCounterController::class, 'queue'])->name('queue');
     Route::patch('/counters/{counter}/call', [AgentCounterController::class, 'call'])->name('counters.call');
     Route::patch('/counters/{counter}/tickets/{ticket}/treat', [AgentCounterController::class, 'treat'])->name('counters.treat');
@@ -40,7 +40,10 @@ Route::middleware(['auth', 'role:agent'])->prefix('agent')->name('agent.')->grou
 });
 
 // Admin
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'check_status', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/users/pending', [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('users.pending');
+    Route::patch('/users/{user}/approve', [\App\Http\Controllers\Admin\UserController::class, 'approve'])->name('users.approve');
+    
     Route::resource('services', AdminServiceController::class);
     Route::resource('counters', AdminCounterController::class);
     Route::patch('counters/{counter}/assign', [AdminCounterController::class, 'assignAgent'])->name('counters.assignAgent');

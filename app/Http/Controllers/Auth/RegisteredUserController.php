@@ -28,21 +28,32 @@ class RegisteredUserController extends Controller
      *
      * @throws ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(\App\Http\Requests\Auth\RegisterRequest $request): RedirectResponse
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        $validated = $request->validated();
+
+        if ($request->role === 'agent') {
+            $role = 'agent';
+            $status = 'en_attente';
+        } else {
+            $role = 'usager';
+            $status = 'actif';
+        }
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => $role,
+            'status' => $status,
         ]);
 
         event(new Registered($user));
+
+        if ($status === 'en_attente') {
+            return redirect(route('login', absolute: false))
+                ->with('status', 'Votre compte agent est en attente de validation par un administrateur.');
+        }
 
         Auth::login($user);
 
