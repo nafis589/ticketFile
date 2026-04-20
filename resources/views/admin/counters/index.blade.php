@@ -1,6 +1,5 @@
 <x-app-layout>
     @section('header', 'Gestion des Guichets')
-
     <div class="mb-6 flex justify-between items-center">
         <h2 class="text-xl font-bold text-slate-900">Liste des Guichets</h2>
         <a href="{{ route('admin.counters.create') }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-lg font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 active:bg-indigo-800 transition shadow-sm">
