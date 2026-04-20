@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
 use App\Http\Controllers\Admin\CounterController as AdminCounterController;
 use App\Http\Controllers\Admin\StatsController as AdminStatsController;
 
+
 Route::get('/', function () {
     $services = \App\Models\Service::where('is_active', true)->get();
     return view('welcome', compact('services'));
