@@ -1,6 +1,5 @@
 <x-app-layout>
     @section('header', 'Gestion de la File d\'Attente - ' . $counter->name)
-
     <div class="flex flex-col lg:flex-row gap-8">
         <!-- Section: Actions du Guichet -->
         <div class="w-full lg:w-1/3">
