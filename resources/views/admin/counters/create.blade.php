@@ -1,6 +1,5 @@
 <x-app-layout>
     @section('header', 'Nouveau Guichet')
-
     <div class="max-w-2xl bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
         <form action="{{ route('admin.counters.store') }}" method="POST">
             @csrf
