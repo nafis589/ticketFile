@@ -1,5 +1,6 @@
 @props(['ticket', 'position' => null])
 
+
 <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-md transition duration-200 relative">
     <div class="p-6">
         <div class="flex justify-between items-start">
