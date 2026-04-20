@@ -12,7 +12,7 @@ class Service extends Model
 {
     use HasFactory;
     /**
-     * Get the counters associated with the service.
+     * Get the counters associated with the service
      */
     public function counters(): HasMany
     {
