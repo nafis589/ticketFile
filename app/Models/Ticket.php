@@ -21,7 +21,7 @@ class Ticket extends Model
 {
     use HasFactory;
     /**
-     * Get the attributes that should be cast.
+     * Get the attribute that should be cast.
      *
      * @return array<string, string>
      */
