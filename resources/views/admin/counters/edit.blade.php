@@ -9,8 +9,7 @@
             </div>
             <form action="{{ route('admin.counters.update', $counter) }}" method="POST">
                 @csrf
-                @method('PUT')
-                
+                @method('PUT')            
                 <div class="p-8">
                     <div class="mb-6">
                         <label for="name" class="block text-sm font-semibold text-slate-900 mb-2">Nom du guichet</label>
